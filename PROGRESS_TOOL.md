@@ -31,21 +31,48 @@ Y = Yes
 
 ## CLI
 
-Based on the features above, here's the proposed CLI flags:
+Based on the features above, here's the proposed CLI flags: (help displayed with --help)
 
 ```
+Show decompilation progress
+
 Usage: progress [OPTIONS]
 
 Options:
-  -s, --status STATUS   Include functions with a certain status (can specify multiple times), default: ALL statuses
-  -g, --group-by GROUP  Group by GROUP (possible values: namespace, object)
-                        If the file list format is CSV, `object` cannot be used
-  -d, --diff [REV]      Compare against another revision, default HEAD when comparing
-                        With --group-by, only changed groups will be shown
-  -a, --all             When --diff --group-by, show all groups (including those unchanged)
-  -f, --format FORMAT   Change the output format (possible values: pretty, json, comma, key-value). Default is pretty
-                        comma, key-value can only be used without --group-by or --diff
-  -v, --version VERSION Specify the version of the file list to read
+      --version <VERSION>
+          Specify the version to use
+
+  -s, --status <STATUS_SET>
+          Filter the output by status
+          
+          The value can either be a full status name like `NotDecompiled`, or a string of status codes like `OMmUL`
+          
+          [default: OMm]
+
+  -d, --diff [<REV>]
+          Show difference of the progress in the current worktree's file list against another Git revision; requires Git
+
+  -g, --group-by <GROUP>
+          Show per-group progress
+
+          Possible values:
+          - namespace: Group by top namespace
+          - object:    Group by object as listed in the file list
+
+  -a, --all
+          When diffing per-group, show unchanged groups
+
+  -f, --format <FORMAT>
+          Specify output format
+
+          Possible values:
+          - pretty: Human-readable, color-coded format
+          - json:   JSON
+          
+          [default: pretty]
+
+  -h, --help
+          Print help (see a summary with '-h')
 ```
 
 ## Specification
